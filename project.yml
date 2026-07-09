@@ -1,0 +1,42 @@
+name: SmartSlides
+options:
+  bundleIdPrefix: com.nate.smartslides
+  deploymentTarget:
+    macOS: "14.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: "-"
+    ENABLE_HARDENED_RUNTIME: NO
+targets:
+  SmartSlides:
+    type: application
+    platform: macOS
+    sources:
+      - path: SmartSlides
+        excludes:
+          - "Resources/**"
+    resources:
+      - path: SmartSlides/Resources/Assets.xcassets
+    info:
+      path: SmartSlides/Resources/Info.plist
+      properties:
+        CFBundleName: SmartSlides
+        CFBundleDisplayName: SmartSlides
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        CFBundleIdentifier: com.nate.smartslides
+        LSMinimumSystemVersion: "14.0"
+        NSHumanReadableCopyright: "SmartSlides"
+        NSPrincipalClass: NSApplication
+        LSApplicationCategoryType: public.app-category.photography
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nate.smartslides
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        ENABLE_PREVIEWS: YES

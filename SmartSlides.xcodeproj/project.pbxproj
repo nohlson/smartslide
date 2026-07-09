@@ -1,0 +1,411 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		058BF5112FD7B5F74FD33D9A /* TimelineGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6491948D3552DB17362989B1 /* TimelineGenerator.swift */; };
+		0AC27156A8880F7C2F4BEE26 /* SlideLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4178DEF9B35EC0486AE3E80C /* SlideLayout.swift */; };
+		12ADCB0300EBF8C5075B9FC6 /* SlideshowOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFA8F23964E7F21569688C1 /* SlideshowOverlayView.swift */; };
+		27943B6FBE2787546F76EE96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EEEB0A3A886FB2EF83FEA /* ContentView.swift */; };
+		283796146319BD6D21307EFB /* SlideshowWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C27B1F7DC50E3FD09B3514D /* SlideshowWindowController.swift */; };
+		391D3337AC85C7F9CDFCD1F5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E481794B7F0511D97DBDF /* SettingsViewModel.swift */; };
+		4BD9CC073E360888611E2EBF /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE529C5AD90AADD3886A4260 /* FolderSelectionView.swift */; };
+		5CEEC76A3ADDB4EB7351A6E1 /* TimelineStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BBE139C8D5113F105ACB9A /* TimelineStripView.swift */; };
+		6A65DA8D4675A64D55A7D0CD /* ImageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A399650122C12C12B00C97 /* ImageAsset.swift */; };
+		6EA3D02E7BAAA6D2C05355D1 /* SlideScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255A00A72EE5AC2ED64CF1CF /* SlideScene.swift */; };
+		700693EBEDF9B66678847A30 /* LayoutSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A62411BC92821136CAAB5FF /* LayoutSelectionView.swift */; };
+		71082F574E500576F8E2FB0D /* AppSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90805302B91A05E28EFA3F21 /* AppSettingsStore.swift */; };
+		7568E03CD0A5B2F914C7CFFE /* SlideshowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151FB0EBBB0DAB4F7FF4B411 /* SlideshowView.swift */; };
+		85BCDEB6372832DD9FDC594D /* SmartSlidesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB19B1B1E73F411FD3E0EE66 /* SmartSlidesApp.swift */; };
+		95B4192B5C8A2A695E388956 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90BA89E5FC7226965E61ABB /* AppSettings.swift */; };
+		9DA0273CFBA27D8EB3651EAB /* SeededRandomNumberGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCF13F488B8741734506465 /* SeededRandomNumberGenerator.swift */; };
+		B3FDAE617ACDEDC4B43F97D0 /* ThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D7FAEE8868FAF620FD20F /* ThumbnailStore.swift */; };
+		C2DAA61A2AB5F922D9F37277 /* SlideshowPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF7B765A135B10E9B45AFBA /* SlideshowPlayerViewModel.swift */; };
+		C3701D2E74ACEFAD15C4F6BA /* TimingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D9BAE58DF17C2161F0D330 /* TimingSettingsView.swift */; };
+		C71FD35779F82C7BA7FF38B2 /* ImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED87776316BE591408B2C5DE /* ImageScanner.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		09BBE139C8D5113F105ACB9A /* TimelineStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineStripView.swift; sourceTree = "<group>"; };
+		0C27B1F7DC50E3FD09B3514D /* SlideshowWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideshowWindowController.swift; sourceTree = "<group>"; };
+		151FB0EBBB0DAB4F7FF4B411 /* SlideshowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideshowView.swift; sourceTree = "<group>"; };
+		1AF7B765A135B10E9B45AFBA /* SlideshowPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideshowPlayerViewModel.swift; sourceTree = "<group>"; };
+		233E481794B7F0511D97DBDF /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		255A00A72EE5AC2ED64CF1CF /* SlideScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideScene.swift; sourceTree = "<group>"; };
+		4178DEF9B35EC0486AE3E80C /* SlideLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideLayout.swift; sourceTree = "<group>"; };
+		6491948D3552DB17362989B1 /* TimelineGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineGenerator.swift; sourceTree = "<group>"; };
+		88A399650122C12C12B00C97 /* ImageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAsset.swift; sourceTree = "<group>"; };
+		90805302B91A05E28EFA3F21 /* AppSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsStore.swift; sourceTree = "<group>"; };
+		9A62411BC92821136CAAB5FF /* LayoutSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSelectionView.swift; sourceTree = "<group>"; };
+		A85D7FAEE8868FAF620FD20F /* ThumbnailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailStore.swift; sourceTree = "<group>"; };
+		A90BA89E5FC7226965E61ABB /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		AFCF13F488B8741734506465 /* SeededRandomNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGenerator.swift; sourceTree = "<group>"; };
+		BB19B1B1E73F411FD3E0EE66 /* SmartSlidesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartSlidesApp.swift; sourceTree = "<group>"; };
+		DE5EEEB0A3A886FB2EF83FEA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		ED87776316BE591408B2C5DE /* ImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScanner.swift; sourceTree = "<group>"; };
+		EDFA8F23964E7F21569688C1 /* SlideshowOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideshowOverlayView.swift; sourceTree = "<group>"; };
+		EE529C5AD90AADD3886A4260 /* FolderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSelectionView.swift; sourceTree = "<group>"; };
+		F2D9BAE58DF17C2161F0D330 /* TimingSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingSettingsView.swift; sourceTree = "<group>"; };
+		F4741B9D4F0257D4161E831A /* SmartSlides.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartSlides.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		656AA1DA32A758E32F7921DC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0C27B1F7DC50E3FD09B3514D /* SlideshowWindowController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		699EAC8FAA4647A8EF9F3665 /* SmartSlides */ = {
+			isa = PBXGroup;
+			children = (
+				DE5EEEB0A3A886FB2EF83FEA /* ContentView.swift */,
+				BB19B1B1E73F411FD3E0EE66 /* SmartSlidesApp.swift */,
+				656AA1DA32A758E32F7921DC /* Controllers */,
+				B2EAED3450ED16F0A6C37712 /* Models */,
+				8266E6D882F6FAFDCAF033C1 /* Services */,
+				CB0A4B128524BA1A203F9AAD /* ViewModels */,
+				FF487E381636C0C2C5CAF8C1 /* Views */,
+			);
+			path = SmartSlides;
+			sourceTree = "<group>";
+		};
+		8266E6D882F6FAFDCAF033C1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				90805302B91A05E28EFA3F21 /* AppSettingsStore.swift */,
+				ED87776316BE591408B2C5DE /* ImageScanner.swift */,
+				AFCF13F488B8741734506465 /* SeededRandomNumberGenerator.swift */,
+				A85D7FAEE8868FAF620FD20F /* ThumbnailStore.swift */,
+				6491948D3552DB17362989B1 /* TimelineGenerator.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A091FAA65535A04B14012A52 = {
+			isa = PBXGroup;
+			children = (
+				699EAC8FAA4647A8EF9F3665 /* SmartSlides */,
+				AF9CD2BC5203E9767B11B356 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AF9CD2BC5203E9767B11B356 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F4741B9D4F0257D4161E831A /* SmartSlides.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B2EAED3450ED16F0A6C37712 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A90BA89E5FC7226965E61ABB /* AppSettings.swift */,
+				88A399650122C12C12B00C97 /* ImageAsset.swift */,
+				4178DEF9B35EC0486AE3E80C /* SlideLayout.swift */,
+				255A00A72EE5AC2ED64CF1CF /* SlideScene.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CB0A4B128524BA1A203F9AAD /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				233E481794B7F0511D97DBDF /* SettingsViewModel.swift */,
+				1AF7B765A135B10E9B45AFBA /* SlideshowPlayerViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FF487E381636C0C2C5CAF8C1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EE529C5AD90AADD3886A4260 /* FolderSelectionView.swift */,
+				9A62411BC92821136CAAB5FF /* LayoutSelectionView.swift */,
+				EDFA8F23964E7F21569688C1 /* SlideshowOverlayView.swift */,
+				151FB0EBBB0DAB4F7FF4B411 /* SlideshowView.swift */,
+				09BBE139C8D5113F105ACB9A /* TimelineStripView.swift */,
+				F2D9BAE58DF17C2161F0D330 /* TimingSettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8B05EE44D6BD880A82D84802 /* SmartSlides */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 527BF48F70DD4D370FF3F28E /* Build configuration list for PBXNativeTarget "SmartSlides" */;
+			buildPhases = (
+				0533F8CA59B5A767A9E91D15 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SmartSlides;
+			packageProductDependencies = (
+			);
+			productName = SmartSlides;
+			productReference = F4741B9D4F0257D4161E831A /* SmartSlides.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		45B7B49B14048E007BF7C2F1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					8B05EE44D6BD880A82D84802 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 599B7F2A49C986B0D29FABAE /* Build configuration list for PBXProject "SmartSlides" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A091FAA65535A04B14012A52;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = AF9CD2BC5203E9767B11B356 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8B05EE44D6BD880A82D84802 /* SmartSlides */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0533F8CA59B5A767A9E91D15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95B4192B5C8A2A695E388956 /* AppSettings.swift in Sources */,
+				71082F574E500576F8E2FB0D /* AppSettingsStore.swift in Sources */,
+				27943B6FBE2787546F76EE96 /* ContentView.swift in Sources */,
+				4BD9CC073E360888611E2EBF /* FolderSelectionView.swift in Sources */,
+				6A65DA8D4675A64D55A7D0CD /* ImageAsset.swift in Sources */,
+				C71FD35779F82C7BA7FF38B2 /* ImageScanner.swift in Sources */,
+				700693EBEDF9B66678847A30 /* LayoutSelectionView.swift in Sources */,
+				9DA0273CFBA27D8EB3651EAB /* SeededRandomNumberGenerator.swift in Sources */,
+				391D3337AC85C7F9CDFCD1F5 /* SettingsViewModel.swift in Sources */,
+				0AC27156A8880F7C2F4BEE26 /* SlideLayout.swift in Sources */,
+				6EA3D02E7BAAA6D2C05355D1 /* SlideScene.swift in Sources */,
+				12ADCB0300EBF8C5075B9FC6 /* SlideshowOverlayView.swift in Sources */,
+				C2DAA61A2AB5F922D9F37277 /* SlideshowPlayerViewModel.swift in Sources */,
+				7568E03CD0A5B2F914C7CFFE /* SlideshowView.swift in Sources */,
+				283796146319BD6D21307EFB /* SlideshowWindowController.swift in Sources */,
+				85BCDEB6372832DD9FDC594D /* SmartSlidesApp.swift in Sources */,
+				B3FDAE617ACDEDC4B43F97D0 /* ThumbnailStore.swift in Sources */,
+				058BF5112FD7B5F74FD33D9A /* TimelineGenerator.swift in Sources */,
+				5CEEC76A3ADDB4EB7351A6E1 /* TimelineStripView.swift in Sources */,
+				C3701D2E74ACEFAD15C4F6BA /* TimingSettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4DC6EC431A8882485B4197DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SmartSlides/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nate.smartslides;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		854E4B3AD67B9BA3835D6679 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SmartSlides/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nate.smartslides;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8ED3036880A064F5400458E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		AC764925740332C1D2D2D9F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		527BF48F70DD4D370FF3F28E /* Build configuration list for PBXNativeTarget "SmartSlides" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				854E4B3AD67B9BA3835D6679 /* Debug */,
+				4DC6EC431A8882485B4197DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		599B7F2A49C986B0D29FABAE /* Build configuration list for PBXProject "SmartSlides" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8ED3036880A064F5400458E7 /* Debug */,
+				AC764925740332C1D2D2D9F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 45B7B49B14048E007BF7C2F1 /* Project object */;
+}
