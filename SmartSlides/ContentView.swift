@@ -19,7 +19,8 @@ struct ContentView: View {
             TimelineStripView(
                 scenes: viewModel.settings.timeline,
                 currentIndex: viewModel.settings.currentTimelineIndex,
-                thumbnailStore: viewModel.thumbnailStore
+                thumbnailStore: viewModel.thumbnailStore,
+                onSelect: { viewModel.updateCurrentIndex($0) }
             )
             .padding(.horizontal, 16)
             .padding(.vertical, 10)

@@ -1,11 +1,13 @@
 import SwiftUI
 
-/// A read-only, scrollable filmstrip showing a compressed thumbnail of every scene in the
-/// generated timeline — purely for visual orientation on where the current slide sits.
+/// A scrollable filmstrip showing a compressed thumbnail of every scene in the generated
+/// timeline. Shows where the current slide sits, and lets the user click a scene to set it
+/// as the slideshow's starting point.
 struct TimelineStripView: View {
     let scenes: [SlideScene]
     let currentIndex: Int
     @ObservedObject var thumbnailStore: ThumbnailStore
+    var onSelect: (Int) -> Void
 
     private let thumbHeight: CGFloat = 64
 
@@ -60,6 +62,11 @@ struct TimelineStripView: View {
                                         cellSize: CGSize(width: thumbHeight * cellAspect, height: thumbHeight)
                                     )
                                     .id(scene.id)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        onSelect(index)
+                                    }
+                                    .help("Start slideshow from here")
                                 }
                             }
                         }
