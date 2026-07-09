@@ -40,9 +40,13 @@ final class SlideshowWindowController: NSWindowController {
         }
         self.player = player
 
-        let rootView = SlideshowView(player: player, onExit: { [weak self] in
-            self?.exitSlideshow()
-        })
+        let rootView = SlideshowView(
+            player: player,
+            thumbnailStore: settingsViewModel.thumbnailStore,
+            onExit: { [weak self] in
+                self?.exitSlideshow()
+            }
+        )
         window.contentView = NSHostingView(rootView: rootView)
         window.setFrame(screenFrame, display: true)
         window.makeKeyAndOrderFront(nil)

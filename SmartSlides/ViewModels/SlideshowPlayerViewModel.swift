@@ -61,6 +61,24 @@ final class SlideshowPlayerViewModel: ObservableObject {
         restartTimerIfPlaying()
     }
 
+    /// Suspends the auto-advance timer without flipping `isPaused`, so the play/pause icon
+    /// doesn't flicker while the user is actively dragging the scrub bar.
+    func beginScrub() {
+        timer?.invalidate()
+        timer = nil
+    }
+
+    /// Jumps directly to `index` (used by the scrub bar) and restarts the timer if playback
+    /// wasn't paused, same as a manual next/previous.
+    func scrub(to index: Int) {
+        guard timeline.indices.contains(index), index != currentIndex else {
+            restartTimerIfPlaying()
+            return
+        }
+        advance(to: index)
+        restartTimerIfPlaying()
+    }
+
     func setDisplayDuration(_ value: Double) {
         displayDuration = value
         restartTimerIfPlaying()

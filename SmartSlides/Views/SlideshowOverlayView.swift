@@ -2,44 +2,56 @@ import SwiftUI
 
 struct SlideshowOverlayView: View {
     @ObservedObject var player: SlideshowPlayerViewModel
+    @ObservedObject var thumbnailStore: ThumbnailStore
+    var onDragBegin: () -> Void
 
     var body: some View {
-        HStack(spacing: 20) {
-            Button(action: { player.togglePause() }) {
-                Image(systemName: player.isPaused ? "play.fill" : "pause.fill")
-                    .font(.system(size: 16))
-            }
-            .buttonStyle(.plain)
+        VStack(spacing: 10) {
+            HStack(spacing: 20) {
+                Button(action: { player.togglePause() }) {
+                    Image(systemName: player.isPaused ? "play.fill" : "pause.fill")
+                        .font(.system(size: 16))
+                }
+                .buttonStyle(.plain)
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Display: \(String(format: "%.1f", player.displayDuration))s")
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Display: \(String(format: "%.1f", player.displayDuration))s")
+                        .font(.caption)
+                    Slider(
+                        value: Binding(
+                            get: { player.displayDuration },
+                            set: { player.setDisplayDuration($0) }
+                        ),
+                        in: 2...20
+                    )
+                    .frame(width: 160)
+                }
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Transition: \(String(format: "%.1f", player.transitionDuration))s")
+                        .font(.caption)
+                    Slider(
+                        value: Binding(
+                            get: { player.transitionDuration },
+                            set: { player.setTransitionDuration($0) }
+                        ),
+                        in: 0.2...5
+                    )
+                    .frame(width: 160)
+                }
+
+                Text("\(player.currentIndex + 1) / \(player.totalCount)")
                     .font(.caption)
-                Slider(
-                    value: Binding(
-                        get: { player.displayDuration },
-                        set: { player.setDisplayDuration($0) }
-                    ),
-                    in: 2...20
-                )
-                .frame(width: 160)
+                    .monospacedDigit()
             }
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Transition: \(String(format: "%.1f", player.transitionDuration))s")
-                    .font(.caption)
-                Slider(
-                    value: Binding(
-                        get: { player.transitionDuration },
-                        set: { player.setTransitionDuration($0) }
-                    ),
-                    in: 0.2...5
-                )
-                .frame(width: 160)
-            }
-
-            Text("\(player.currentIndex + 1) / \(player.totalCount)")
-                .font(.caption)
-                .monospacedDigit()
+            PlayerTimelineScrubberView(
+                scenes: player.timeline,
+                currentIndex: player.currentIndex,
+                thumbnailStore: thumbnailStore,
+                onDragBegin: onDragBegin,
+                onScrub: { player.scrub(to: $0) }
+            )
         }
         .foregroundStyle(.white)
         .padding(.horizontal, 24)

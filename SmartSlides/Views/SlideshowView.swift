@@ -3,6 +3,7 @@ import AppKit
 
 struct SlideshowView: View {
     @ObservedObject var player: SlideshowPlayerViewModel
+    @ObservedObject var thumbnailStore: ThumbnailStore
     @State private var overlayVisible: Bool = true
     @State private var overlayHideWorkItem: DispatchWorkItem?
     var onExit: () -> Void
@@ -21,9 +22,16 @@ struct SlideshowView: View {
             VStack {
                 Spacer()
                 if overlayVisible {
-                    SlideshowOverlayView(player: player)
-                        .padding(.bottom, 24)
-                        .transition(.opacity)
+                    SlideshowOverlayView(
+                        player: player,
+                        thumbnailStore: thumbnailStore,
+                        onDragBegin: {
+                            player.beginScrub()
+                            showOverlayTemporarily()
+                        }
+                    )
+                    .padding(.bottom, 24)
+                    .transition(.opacity)
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: overlayVisible)
