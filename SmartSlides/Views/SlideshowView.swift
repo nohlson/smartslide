@@ -4,6 +4,7 @@ import AppKit
 struct SlideshowView: View {
     @ObservedObject var player: SlideshowPlayerViewModel
     @ObservedObject var thumbnailStore: ThumbnailStore
+    let crossfadeEnabled: Bool
     @State private var overlayVisible: Bool = true
     @State private var overlayHideWorkItem: DispatchWorkItem?
     @State private var rehashToastVisible: Bool = false
@@ -14,12 +15,12 @@ struct SlideshowView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
-            if let scene = player.currentScene {
-                SceneView(scene: scene, thumbnails: thumbnailStore.thumbnails)
-                    .id(scene.id)
-                    .transition(.opacity)
-                    .animation(.easeInOut(duration: player.transitionDuration), value: scene.id)
-            }
+            CrossfadeSceneView(
+                scene: player.currentScene,
+                thumbnails: thumbnailStore.thumbnails,
+                transitionDuration: player.transitionDuration,
+                crossfadeEnabled: crossfadeEnabled
+            )
 
             VStack {
                 Spacer()
@@ -108,6 +109,36 @@ struct SlideshowView: View {
             urls.append(contentsOf: timeline[wrapped].imageURLs)
         }
         await DisplayImageCache.shared.prefetch(urls)
+    }
+}
+
+/// The canonical SwiftUI cross-dissolve (what Photos/Keynote-style dissolves reduce to):
+/// the scene view is identity-keyed with `.id(scene.id)` and given an `.opacity` transition,
+/// and the *container* carries the `.animation(value:)`. On a scene change SwiftUI keeps both
+/// the outgoing and incoming views alive for the duration, fading one out 1→0 while the other
+/// fades in 0→1 in the same transaction — no hand-managed layer state to get stale (which is
+/// what previously caused repeated frames and placeholder flashes mid-fade).
+///
+/// The crucial detail vs. the naive version: the animation must be attached to the container,
+/// not the id'd view itself, or the removal never animates and the switch looks instant.
+private struct CrossfadeSceneView: View {
+    let scene: SlideScene?
+    let thumbnails: [URL: NSImage]
+    let transitionDuration: Double
+    let crossfadeEnabled: Bool
+
+    var body: some View {
+        ZStack {
+            if let scene {
+                SceneView(scene: scene, thumbnails: thumbnails)
+                    .id(scene.id)
+                    .transition(.opacity)
+            }
+        }
+        .animation(
+            crossfadeEnabled ? .easeInOut(duration: transitionDuration) : nil,
+            value: scene?.id
+        )
     }
 }
 

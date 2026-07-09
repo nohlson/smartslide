@@ -94,6 +94,11 @@ final class SettingsViewModel: ObservableObject {
         persist()
     }
 
+    func updateCrossfadeEnabled(_ value: Bool) {
+        settings.crossfadeEnabled = value
+        persist()
+    }
+
     func generateNewHash() {
         regenerateTimelineWithNewSeed()
         persist()

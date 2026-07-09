@@ -7,6 +7,9 @@ struct AppSettings: Codable {
     var seed: UInt64 = UInt64.random(in: UInt64.min...UInt64.max)
     var displayDuration: Double = 7.0
     var transitionDuration: Double = 1.0
+    /// When true, slides dissolve into each other over `transitionDuration`. When false, each
+    /// slide switches instantly with no fade.
+    var crossfadeEnabled: Bool = true
     /// Index into `previousTimeline + timeline` (the concatenated, navigable sequence) —
     /// not just `timeline` alone. When `previousTimeline` is empty (the normal case) this is
     /// simply an index into `timeline`, same as before.

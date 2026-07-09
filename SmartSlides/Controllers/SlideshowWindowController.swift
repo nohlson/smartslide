@@ -48,6 +48,7 @@ final class SlideshowWindowController: NSWindowController {
         let rootView = SlideshowView(
             player: player,
             thumbnailStore: settingsViewModel.thumbnailStore,
+            crossfadeEnabled: settingsViewModel.settings.crossfadeEnabled,
             onExit: { [weak self] in
                 self?.exitSlideshow()
             }

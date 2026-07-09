@@ -32,6 +32,20 @@ struct TimingSettingsView: View {
                     range: 0.2...5,
                     unit: "sec"
                 )
+                .opacity(viewModel.settings.crossfadeEnabled ? 1 : 0.4)
+                .disabled(!viewModel.settings.crossfadeEnabled)
+
+                Toggle("Crossfade Transition", isOn: Binding(
+                    get: { viewModel.settings.crossfadeEnabled },
+                    set: { viewModel.updateCrossfadeEnabled($0) }
+                ))
+                .toggleStyle(.switch)
+
+                Text(viewModel.settings.crossfadeEnabled
+                     ? "Slides dissolve into each other over the transition duration."
+                     : "Slides switch instantly, no fade.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
             }
 
             Divider()
