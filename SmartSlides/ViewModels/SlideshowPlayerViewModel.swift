@@ -10,10 +10,17 @@ final class SlideshowPlayerViewModel: ObservableObject {
     @Published var transitionDuration: Double
     @Published var isTransitioning: Bool = false
 
+    /// How long the current slide has been showing — ticks live while playing so the overlay
+    /// can show an elapsed/remaining time like a video scrubber.
+    @Published private(set) var elapsedInCurrentSlide: TimeInterval = 0
+
     /// Called whenever the current index changes, so the owner can persist it.
     var onIndexChange: ((Int) -> Void)?
 
     private var timer: Timer?
+    private var tickTimer: Timer?
+    private var slideStartDate = Date()
+    private var pausedElapsed: TimeInterval = 0
 
     var currentScene: SlideScene? {
         guard timeline.indices.contains(currentIndex) else { return nil }
@@ -21,6 +28,16 @@ final class SlideshowPlayerViewModel: ObservableObject {
     }
 
     var totalCount: Int { timeline.count }
+
+    /// Total time elapsed across the whole timeline, assuming every slide takes the current
+    /// display duration (approximate if the duration was changed mid-playback).
+    var totalElapsed: TimeInterval {
+        Double(currentIndex) * displayDuration + elapsedInCurrentSlide
+    }
+
+    var totalDuration: TimeInterval {
+        Double(totalCount) * displayDuration
+    }
 
     init(timeline: [SlideScene], startIndex: Int, displayDuration: Double, transitionDuration: Double) {
         self.timeline = timeline
@@ -31,12 +48,18 @@ final class SlideshowPlayerViewModel: ObservableObject {
 
     func start() {
         isPaused = false
+        slideStartDate = Date()
+        pausedElapsed = 0
+        elapsedInCurrentSlide = 0
         scheduleTimer()
+        scheduleTick()
     }
 
     func stop() {
         timer?.invalidate()
         timer = nil
+        tickTimer?.invalidate()
+        tickTimer = nil
     }
 
     func togglePause() {
@@ -44,8 +67,13 @@ final class SlideshowPlayerViewModel: ObservableObject {
         if isPaused {
             timer?.invalidate()
             timer = nil
+            tickTimer?.invalidate()
+            tickTimer = nil
+            pausedElapsed = elapsedInCurrentSlide
         } else {
+            slideStartDate = Date().addingTimeInterval(-pausedElapsed)
             scheduleTimer()
+            scheduleTick()
         }
     }
 
@@ -91,6 +119,9 @@ final class SlideshowPlayerViewModel: ObservableObject {
     private func advance(to index: Int) {
         isTransitioning = true
         currentIndex = index
+        slideStartDate = Date()
+        pausedElapsed = 0
+        elapsedInCurrentSlide = 0
         onIndexChange?(currentIndex)
         DispatchQueue.main.asyncAfter(deadline: .now() + transitionDuration) { [weak self] in
             self?.isTransitioning = false
@@ -103,6 +134,17 @@ final class SlideshowPlayerViewModel: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: displayDuration, repeats: true) { [weak self] _ in
             Task { @MainActor in
                 self?.next()
+            }
+        }
+    }
+
+    private func scheduleTick() {
+        tickTimer?.invalidate()
+        guard !timeline.isEmpty else { return }
+        tickTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                guard let self, !self.isPaused else { return }
+                self.elapsedInCurrentSlide = Date().timeIntervalSince(self.slideStartDate)
             }
         }
     }

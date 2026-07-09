@@ -40,9 +40,15 @@ struct SlideshowOverlayView: View {
                     .frame(width: 160)
                 }
 
-                Text("\(player.currentIndex + 1) / \(player.totalCount)")
-                    .font(.caption)
-                    .monospacedDigit()
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text("\(player.currentIndex + 1) / \(player.totalCount)")
+                        .font(.caption)
+                        .monospacedDigit()
+                    Text("\(formatTime(player.totalElapsed)) / \(formatTime(player.totalDuration)) · \(formatTime(max(player.totalDuration - player.totalElapsed, 0))) left")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
+                }
             }
 
             PlayerTimelineScrubberView(
@@ -58,5 +64,16 @@ struct SlideshowOverlayView: View {
         .padding(.vertical, 14)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
         .padding(.horizontal, 40)
+    }
+
+    private func formatTime(_ seconds: TimeInterval) -> String {
+        let total = Int(seconds.rounded())
+        let hours = total / 3600
+        let minutes = (total % 3600) / 60
+        let secs = total % 60
+        if hours > 0 {
+            return String(format: "%d:%02d:%02d", hours, minutes, secs)
+        }
+        return String(format: "%d:%02d", minutes, secs)
     }
 }
