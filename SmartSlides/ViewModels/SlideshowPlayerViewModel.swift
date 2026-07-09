@@ -17,10 +17,21 @@ final class SlideshowPlayerViewModel: ObservableObject {
     /// Called whenever the current index changes, so the owner can persist it.
     var onIndexChange: ((Int) -> Void)?
 
+    /// Rehash on Replay: when set, called as playback nears the end of `timeline` to generate
+    /// a fresh continuation. Returns the new scenes to append, or empty to skip (e.g. folder
+    /// unavailable).
+    var onNeedsRehash: (() -> [SlideScene])?
+    var rehashOnReplayEnabled: Bool
+
     private var timer: Timer?
     private var tickTimer: Timer?
     private var slideStartDate = Date()
     private var pausedElapsed: TimeInterval = 0
+
+    /// Index within `timeline` where the *current* generation begins — everything before this
+    /// is the kept-around previous generation. When a rehash appends a new generation, this
+    /// generation's scenes become the new previous, and anything before this index is dropped.
+    @Published private(set) var currentSegmentStart: Int
 
     var currentScene: SlideScene? {
         guard timeline.indices.contains(currentIndex) else { return nil }
@@ -39,11 +50,20 @@ final class SlideshowPlayerViewModel: ObservableObject {
         Double(totalCount) * displayDuration
     }
 
-    init(timeline: [SlideScene], startIndex: Int, displayDuration: Double, transitionDuration: Double) {
+    init(
+        timeline: [SlideScene],
+        startIndex: Int,
+        currentSegmentStart: Int,
+        displayDuration: Double,
+        transitionDuration: Double,
+        rehashOnReplayEnabled: Bool
+    ) {
         self.timeline = timeline
         self.currentIndex = timeline.indices.contains(startIndex) ? startIndex : 0
+        self.currentSegmentStart = min(max(currentSegmentStart, 0), timeline.count)
         self.displayDuration = displayDuration
         self.transitionDuration = transitionDuration
+        self.rehashOnReplayEnabled = rehashOnReplayEnabled
     }
 
     func start() {
@@ -123,9 +143,27 @@ final class SlideshowPlayerViewModel: ObservableObject {
         pausedElapsed = 0
         elapsedInCurrentSlide = 0
         onIndexChange?(currentIndex)
+        maybeTriggerRehash()
         DispatchQueue.main.asyncAfter(deadline: .now() + transitionDuration) { [weak self] in
             self?.isTransitioning = false
         }
+    }
+
+    /// A few scenes before running out of timeline, ask for a fresh continuation and splice it
+    /// on — dropping anything older than the generation currently playing, since we only keep
+    /// one generation of scrub-back history.
+    private func maybeTriggerRehash() {
+        guard rehashOnReplayEnabled, !timeline.isEmpty else { return }
+        let remaining = timeline.count - 1 - currentIndex
+        guard remaining <= TimelineConstants.rehashLookaheadCount else { return }
+        guard let newScenes = onNeedsRehash?(), !newScenes.isEmpty else { return }
+
+        let dropCount = currentSegmentStart
+        let keptCurrentGeneration = Array(timeline[dropCount...])
+        currentIndex -= dropCount
+        timeline = keptCurrentGeneration + newScenes
+        currentSegmentStart = keptCurrentGeneration.count
+        onIndexChange?(currentIndex)
     }
 
     private func scheduleTimer() {

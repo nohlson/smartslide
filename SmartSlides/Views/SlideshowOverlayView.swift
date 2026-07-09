@@ -54,7 +54,16 @@ struct SlideshowOverlayView: View {
             PlayerTimelineScrubberView(
                 scenes: player.timeline,
                 currentIndex: player.currentIndex,
+                segmentBoundaryIndex: player.currentSegmentStart,
+                showRehashPlaceholders: player.rehashOnReplayEnabled,
                 thumbnailStore: thumbnailStore,
+                onDragBegin: onDragBegin,
+                onScrub: { player.scrub(to: $0) }
+            )
+
+            TimelineScrollbarView(
+                totalCount: player.totalCount,
+                currentIndex: player.currentIndex,
                 onDragBegin: onDragBegin,
                 onScrub: { player.scrub(to: $0) }
             )

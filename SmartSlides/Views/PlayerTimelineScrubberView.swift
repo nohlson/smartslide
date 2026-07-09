@@ -10,6 +10,11 @@ import SwiftUI
 struct PlayerTimelineScrubberView: View {
     let scenes: [SlideScene]
     let currentIndex: Int
+    /// Index in `scenes` where the current generation begins (0 if there's no kept-around
+    /// previous generation) — draws a delineator there.
+    let segmentBoundaryIndex: Int
+    /// Shows dashed "more coming" placeholder cells at the tail when Rehash on Replay is on.
+    let showRehashPlaceholders: Bool
     @ObservedObject var thumbnailStore: ThumbnailStore
     var onDragBegin: () -> Void
     var onScrub: (Int) -> Void
@@ -19,6 +24,7 @@ struct PlayerTimelineScrubberView: View {
 
     private let cellHeight: CGFloat = 54
     private let spacing: CGFloat = 4
+    private let delineatorWidth: CGFloat = 16
 
     private var cellAspect: CGFloat {
         let size = NSScreen.main?.frame.size ?? CGSize(width: 16, height: 10)
@@ -27,14 +33,22 @@ struct PlayerTimelineScrubberView: View {
     private var cellWidth: CGFloat { cellHeight * cellAspect }
     private var stride: CGFloat { cellWidth + spacing }
 
+    /// Extra width inserted before `currentIndex` by the delineator, if it sits before it.
+    private var delineatorOffsetForCurrent: CGFloat {
+        (segmentBoundaryIndex > 0 && currentIndex >= segmentBoundaryIndex) ? (delineatorWidth + spacing) : 0
+    }
+
     var body: some View {
         GeometryReader { geo in
             let centerX = geo.size.width / 2
-            let baseOffset = centerX - (CGFloat(currentIndex) * stride + cellWidth / 2)
+            let baseOffset = centerX - (CGFloat(currentIndex) * stride + cellWidth / 2 + delineatorOffsetForCurrent)
 
             ZStack {
                 HStack(spacing: spacing) {
                     ForEach(Array(scenes.enumerated()), id: \.element.id) { index, scene in
+                        if index == segmentBoundaryIndex && segmentBoundaryIndex > 0 {
+                            RehashDelineatorView(height: cellHeight)
+                        }
                         let isCurrent = index == currentIndex
                         let isPending = !isCurrent && pendingIndex == index
                         ScrubberCell(
@@ -46,6 +60,12 @@ struct PlayerTimelineScrubberView: View {
                         )
                         .onTapGesture {
                             onScrub(index)
+                        }
+                    }
+
+                    if showRehashPlaceholders {
+                        ForEach(0..<TimelineConstants.rehashLookaheadCount, id: \.self) { _ in
+                            RehashPlaceholderCell(cellSize: CGSize(width: cellWidth, height: cellHeight))
                         }
                     }
                 }

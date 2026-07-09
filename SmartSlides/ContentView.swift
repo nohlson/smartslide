@@ -17,8 +17,10 @@ struct ContentView: View {
             Divider()
 
             TimelineStripView(
-                scenes: viewModel.settings.timeline,
+                scenes: viewModel.displayTimeline,
                 currentIndex: viewModel.settings.currentTimelineIndex,
+                segmentBoundaryIndex: viewModel.settings.previousTimeline.count,
+                showRehashPlaceholders: viewModel.settings.rehashOnReplay,
                 thumbnailStore: viewModel.thumbnailStore,
                 onSelect: { viewModel.updateCurrentIndex($0) }
             )

@@ -21,6 +21,13 @@ final class SettingsViewModel: ObservableObject {
         !settings.enabledLayouts.isEmpty && !settings.timeline.isEmpty
     }
 
+    /// The full navigable sequence — the just-replaced generation (if Rehash on Replay has
+    /// kicked in) followed by the current one. Both the main-view strip and the fullscreen
+    /// scrubber render this same concatenated sequence.
+    var displayTimeline: [SlideScene] {
+        settings.previousTimeline + settings.timeline
+    }
+
     init() {
         let loaded = AppSettingsStore.load()
         self.settings = loaded
@@ -92,6 +99,42 @@ final class SettingsViewModel: ObservableObject {
         persist()
     }
 
+    func toggleRehashOnReplay(_ enabled: Bool) {
+        settings.rehashOnReplay = enabled
+        persist()
+    }
+
+    /// Discards the kept-around previous generation, collapsing the navigable sequence back
+    /// down to just the current timeline — the "reset to current hash, forget the rest" button.
+    func resetToCurrentHash() {
+        let dropCount = settings.previousTimeline.count
+        guard dropCount > 0 else { return }
+        settings.previousTimeline = []
+        settings.currentTimelineIndex = max(settings.currentTimelineIndex - dropCount, 0)
+        persist()
+    }
+
+    /// Called by the slideshow player (via a callback) when it's a few frames from running out
+    /// of material and Rehash on Replay is on. Generates a fresh timeline with a new seed,
+    /// keeping only the generation it replaces (discarding anything further back), and returns
+    /// the new scenes so the player can seamlessly extend its own local timeline array.
+    func performRehash() -> [SlideScene] {
+        guard !assets.isEmpty else { return [] }
+        let newSeed = UInt64.random(in: UInt64.min...UInt64.max)
+        let result = TimelineGenerator.generate(
+            assets: assets,
+            enabledLayouts: settings.enabledLayouts,
+            seed: newSeed
+        )
+        settings.previousTimeline = settings.timeline
+        settings.timeline = result.scenes
+        settings.seed = newSeed
+        skippedCount = result.skippedCount
+        refreshThumbnails()
+        persist()
+        return result.scenes
+    }
+
     private func regenerateTimelineWithNewSeed() {
         settings.seed = UInt64.random(in: UInt64.min...UInt64.max)
         regenerateTimeline()
@@ -114,13 +157,16 @@ final class SettingsViewModel: ObservableObject {
             seed: settings.seed
         )
         settings.timeline = result.scenes
+        // A deliberate regeneration (new hash, layout change, folder change) is a clean
+        // break, not a Rehash on Replay continuation — nothing to scrub back into.
+        settings.previousTimeline = []
         settings.currentTimelineIndex = 0
         skippedCount = result.skippedCount
         refreshThumbnails()
     }
 
     private func refreshThumbnails() {
-        let urls = settings.timeline.flatMap { $0.imageURLs }
+        let urls = displayTimeline.flatMap { $0.imageURLs }
         thumbnailStore.generate(for: urls)
     }
 

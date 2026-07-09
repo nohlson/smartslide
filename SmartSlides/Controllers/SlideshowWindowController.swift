@@ -30,13 +30,18 @@ final class SlideshowWindowController: NSWindowController {
         self.init(window: window)
 
         let player = SlideshowPlayerViewModel(
-            timeline: settingsViewModel.settings.timeline,
+            timeline: settingsViewModel.displayTimeline,
             startIndex: settingsViewModel.settings.currentTimelineIndex,
+            currentSegmentStart: settingsViewModel.settings.previousTimeline.count,
             displayDuration: settingsViewModel.settings.displayDuration,
-            transitionDuration: settingsViewModel.settings.transitionDuration
+            transitionDuration: settingsViewModel.settings.transitionDuration,
+            rehashOnReplayEnabled: settingsViewModel.settings.rehashOnReplay
         )
         player.onIndexChange = { [weak settingsViewModel] index in
             settingsViewModel?.updateCurrentIndex(index)
+        }
+        player.onNeedsRehash = { [weak settingsViewModel] in
+            settingsViewModel?.performRehash() ?? []
         }
         self.player = player
 

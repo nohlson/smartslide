@@ -52,6 +52,24 @@ struct TimingSettingsView: View {
                 Button("Generate New Hash") {
                     viewModel.generateNewHash()
                 }
+
+                Divider()
+
+                Toggle("Rehash on Replay", isOn: Binding(
+                    get: { viewModel.settings.rehashOnReplay },
+                    set: { viewModel.toggleRehashOnReplay($0) }
+                ))
+                .toggleStyle(.switch)
+
+                Text("Shortly before the timeline ends, generates a fresh shuffle to continue into — a never-ending slideshow. You can still scrub back into the one it replaced.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Button("Reset to Current Hash") {
+                    viewModel.resetToCurrentHash()
+                }
+                .disabled(viewModel.settings.previousTimeline.isEmpty)
             }
 
             Spacer()

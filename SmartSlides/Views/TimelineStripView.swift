@@ -6,6 +6,11 @@ import SwiftUI
 struct TimelineStripView: View {
     let scenes: [SlideScene]
     let currentIndex: Int
+    /// Index in `scenes` where the current generation begins (0 if there's no kept-around
+    /// previous generation) — draws a delineator there.
+    let segmentBoundaryIndex: Int
+    /// Shows dashed "more coming" placeholder cells at the tail when Rehash on Replay is on.
+    let showRehashPlaceholders: Bool
     @ObservedObject var thumbnailStore: ThumbnailStore
     var onSelect: (Int) -> Void
 
@@ -54,6 +59,9 @@ struct TimelineStripView: View {
                         ScrollView(.horizontal, showsIndicators: true) {
                             HStack(spacing: 3) {
                                 ForEach(Array(scenes.enumerated()), id: \.element.id) { index, scene in
+                                    if index == segmentBoundaryIndex && segmentBoundaryIndex > 0 {
+                                        RehashDelineatorView(height: thumbHeight)
+                                    }
                                     SceneThumbnailCell(
                                         scene: scene,
                                         isCurrent: index == currentIndex,
@@ -67,6 +75,14 @@ struct TimelineStripView: View {
                                         onSelect(index)
                                     }
                                     .help("Start slideshow from here")
+                                }
+
+                                if showRehashPlaceholders {
+                                    ForEach(0..<TimelineConstants.rehashLookaheadCount, id: \.self) { _ in
+                                        RehashPlaceholderCell(
+                                            cellSize: CGSize(width: thumbHeight * cellAspect, height: thumbHeight)
+                                        )
+                                    }
                                 }
                             }
                         }

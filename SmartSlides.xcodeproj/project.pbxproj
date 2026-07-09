@@ -12,12 +12,14 @@
 		12ADCB0300EBF8C5075B9FC6 /* SlideshowOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFA8F23964E7F21569688C1 /* SlideshowOverlayView.swift */; };
 		27943B6FBE2787546F76EE96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EEEB0A3A886FB2EF83FEA /* ContentView.swift */; };
 		283796146319BD6D21307EFB /* SlideshowWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C27B1F7DC50E3FD09B3514D /* SlideshowWindowController.swift */; };
+		2DD83A59BE5908F57C5365C8 /* TimelineConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53BBFAB1D7EB5EB622B550B /* TimelineConstants.swift */; };
 		391D3337AC85C7F9CDFCD1F5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E481794B7F0511D97DBDF /* SettingsViewModel.swift */; };
 		4BD9CC073E360888611E2EBF /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE529C5AD90AADD3886A4260 /* FolderSelectionView.swift */; };
 		5CEEC76A3ADDB4EB7351A6E1 /* TimelineStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BBE139C8D5113F105ACB9A /* TimelineStripView.swift */; };
 		6A65DA8D4675A64D55A7D0CD /* ImageAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A399650122C12C12B00C97 /* ImageAsset.swift */; };
 		6EA3D02E7BAAA6D2C05355D1 /* SlideScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255A00A72EE5AC2ED64CF1CF /* SlideScene.swift */; };
 		700693EBEDF9B66678847A30 /* LayoutSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A62411BC92821136CAAB5FF /* LayoutSelectionView.swift */; };
+		7056739136E5AC381F083C01 /* TimelineDecorationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E003190A54283A58BD9A351 /* TimelineDecorationViews.swift */; };
 		71082F574E500576F8E2FB0D /* AppSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90805302B91A05E28EFA3F21 /* AppSettingsStore.swift */; };
 		7568E03CD0A5B2F914C7CFFE /* SlideshowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151FB0EBBB0DAB4F7FF4B411 /* SlideshowView.swift */; };
 		85BCDEB6372832DD9FDC594D /* SmartSlidesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB19B1B1E73F411FD3E0EE66 /* SmartSlidesApp.swift */; };
@@ -27,6 +29,7 @@
 		B3FDAE617ACDEDC4B43F97D0 /* ThumbnailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85D7FAEE8868FAF620FD20F /* ThumbnailStore.swift */; };
 		C2DAA61A2AB5F922D9F37277 /* SlideshowPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF7B765A135B10E9B45AFBA /* SlideshowPlayerViewModel.swift */; };
 		C3701D2E74ACEFAD15C4F6BA /* TimingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D9BAE58DF17C2161F0D330 /* TimingSettingsView.swift */; };
+		C4FEADC93069DBB9D9BDCACA /* TimelineScrollbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D0B9002974872290F3BB84 /* TimelineScrollbarView.swift */; };
 		C71FD35779F82C7BA7FF38B2 /* ImageScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED87776316BE591408B2C5DE /* ImageScanner.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,13 +42,16 @@
 		23E4D10C17E87216963C5A35 /* PlayerTimelineScrubberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTimelineScrubberView.swift; sourceTree = "<group>"; };
 		255A00A72EE5AC2ED64CF1CF /* SlideScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideScene.swift; sourceTree = "<group>"; };
 		4178DEF9B35EC0486AE3E80C /* SlideLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideLayout.swift; sourceTree = "<group>"; };
+		5E003190A54283A58BD9A351 /* TimelineDecorationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDecorationViews.swift; sourceTree = "<group>"; };
 		6491948D3552DB17362989B1 /* TimelineGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineGenerator.swift; sourceTree = "<group>"; };
 		88A399650122C12C12B00C97 /* ImageAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAsset.swift; sourceTree = "<group>"; };
 		90805302B91A05E28EFA3F21 /* AppSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsStore.swift; sourceTree = "<group>"; };
+		98D0B9002974872290F3BB84 /* TimelineScrollbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollbarView.swift; sourceTree = "<group>"; };
 		9A62411BC92821136CAAB5FF /* LayoutSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSelectionView.swift; sourceTree = "<group>"; };
 		A85D7FAEE8868FAF620FD20F /* ThumbnailStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailStore.swift; sourceTree = "<group>"; };
 		A90BA89E5FC7226965E61ABB /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		AFCF13F488B8741734506465 /* SeededRandomNumberGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededRandomNumberGenerator.swift; sourceTree = "<group>"; };
+		B53BBFAB1D7EB5EB622B550B /* TimelineConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineConstants.swift; sourceTree = "<group>"; };
 		BB19B1B1E73F411FD3E0EE66 /* SmartSlidesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartSlidesApp.swift; sourceTree = "<group>"; };
 		DE5EEEB0A3A886FB2EF83FEA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		ED87776316BE591408B2C5DE /* ImageScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScanner.swift; sourceTree = "<group>"; };
@@ -85,6 +91,7 @@
 				ED87776316BE591408B2C5DE /* ImageScanner.swift */,
 				AFCF13F488B8741734506465 /* SeededRandomNumberGenerator.swift */,
 				A85D7FAEE8868FAF620FD20F /* ThumbnailStore.swift */,
+				B53BBFAB1D7EB5EB622B550B /* TimelineConstants.swift */,
 				6491948D3552DB17362989B1 /* TimelineGenerator.swift */,
 			);
 			path = Services;
@@ -134,6 +141,8 @@
 				23E4D10C17E87216963C5A35 /* PlayerTimelineScrubberView.swift */,
 				EDFA8F23964E7F21569688C1 /* SlideshowOverlayView.swift */,
 				151FB0EBBB0DAB4F7FF4B411 /* SlideshowView.swift */,
+				5E003190A54283A58BD9A351 /* TimelineDecorationViews.swift */,
+				98D0B9002974872290F3BB84 /* TimelineScrollbarView.swift */,
 				09BBE139C8D5113F105ACB9A /* TimelineStripView.swift */,
 				F2D9BAE58DF17C2161F0D330 /* TimingSettingsView.swift */,
 			);
@@ -216,7 +225,10 @@
 				283796146319BD6D21307EFB /* SlideshowWindowController.swift in Sources */,
 				85BCDEB6372832DD9FDC594D /* SmartSlidesApp.swift in Sources */,
 				B3FDAE617ACDEDC4B43F97D0 /* ThumbnailStore.swift in Sources */,
+				2DD83A59BE5908F57C5365C8 /* TimelineConstants.swift in Sources */,
+				7056739136E5AC381F083C01 /* TimelineDecorationViews.swift in Sources */,
 				058BF5112FD7B5F74FD33D9A /* TimelineGenerator.swift in Sources */,
+				C4FEADC93069DBB9D9BDCACA /* TimelineScrollbarView.swift in Sources */,
 				5CEEC76A3ADDB4EB7351A6E1 /* TimelineStripView.swift in Sources */,
 				C3701D2E74ACEFAD15C4F6BA /* TimingSettingsView.swift in Sources */,
 			);
