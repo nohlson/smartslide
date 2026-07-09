@@ -13,7 +13,7 @@ struct SlideshowView: View {
             Color.black.ignoresSafeArea()
 
             if let scene = player.currentScene {
-                SceneView(scene: scene)
+                SceneView(scene: scene, thumbnails: thumbnailStore.thumbnails)
                     .id(scene.id)
                     .transition(.opacity)
                     .animation(.easeInOut(duration: player.transitionDuration), value: scene.id)
@@ -43,6 +43,9 @@ struct SlideshowView: View {
         .onAppear {
             showOverlayTemporarily()
         }
+        .task(id: player.currentIndex) {
+            await prefetchNeighbors()
+        }
         .background(KeyEventCatcher(
             onSpace: { player.togglePause(); showOverlayTemporarily() },
             onRight: { player.next(); showOverlayTemporarily() },
@@ -60,20 +63,40 @@ struct SlideshowView: View {
         overlayHideWorkItem = workItem
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: workItem)
     }
+
+    /// Warms the display cache for scenes just ahead of (and one behind) the current slide, so
+    /// switching feels instant — without this, each transition would decode full-resolution
+    /// images on demand.
+    private func prefetchNeighbors() async {
+        let timeline = player.timeline
+        let count = timeline.count
+        guard count > 0 else { return }
+
+        let rawOffsets = [1, 2, -1]
+        var urls: [URL] = []
+        for offset in rawOffsets {
+            let wrapped = ((player.currentIndex + offset) % count + count) % count
+            urls.append(contentsOf: timeline[wrapped].imageURLs)
+        }
+        await DisplayImageCache.shared.prefetch(urls)
+    }
 }
 
 private struct SceneView: View {
     let scene: SlideScene
+    let thumbnails: [URL: NSImage]
 
     var body: some View {
         switch scene.layout {
         case .onePortrait, .oneLandscape:
-            SingleImageView(url: scene.imageURLs.first)
+            CachedDisplayImage(url: scene.imageURLs.first)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black)
         case .twoPortraitsSideBySide, .twoLandscapesSideBySide:
             PairedImageView(
                 leftURL: scene.imageURLs.first,
-                rightURL: scene.imageURLs.count > 1 ? scene.imageURLs[1] : nil
+                rightURL: scene.imageURLs.count > 1 ? scene.imageURLs[1] : nil,
+                thumbnails: thumbnails
             )
         }
     }
@@ -82,51 +105,46 @@ private struct SceneView: View {
 /// Sizes two images to a shared height (derived from their real aspect ratios) so they sit
 /// flush against each other with no gap, rather than each being fit independently into a
 /// fixed half-width column (which produces mismatched heights and a black gap between them).
+/// Aspect ratios come from the already-cached small thumbnails (same aspect ratio, effectively
+/// free) rather than decoding the full-resolution images just to measure them.
 private struct PairedImageView: View {
     let leftURL: URL?
     let rightURL: URL?
+    let thumbnails: [URL: NSImage]
 
     var body: some View {
         GeometryReader { geo in
-            let leftImage = leftURL.flatMap { NSImage(contentsOf: $0) }
-            let rightImage = rightURL.flatMap { NSImage(contentsOf: $0) }
-            let leftAspect = aspectRatio(of: leftImage)
-            let rightAspect = aspectRatio(of: rightImage)
+            let leftAspect = aspectRatio(for: leftURL)
+            let rightAspect = aspectRatio(for: rightURL)
             let combinedHeight = min(geo.size.height, geo.size.width / (leftAspect + rightAspect))
 
             HStack(spacing: 0) {
-                imageView(leftImage)
+                CachedDisplayImage(url: leftURL)
                     .frame(width: leftAspect * combinedHeight, height: combinedHeight)
-                imageView(rightImage)
+                CachedDisplayImage(url: rightURL)
                     .frame(width: rightAspect * combinedHeight, height: combinedHeight)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
     }
 
-    private func aspectRatio(of image: NSImage?) -> CGFloat {
-        guard let image, image.size.height > 0 else { return 1 }
-        return image.size.width / image.size.height
-    }
-
-    @ViewBuilder
-    private func imageView(_ image: NSImage?) -> some View {
-        if let image {
-            Image(nsImage: image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-        } else {
-            Color.black
-        }
+    private func aspectRatio(for url: URL?) -> CGFloat {
+        guard let url, let thumb = thumbnails[url], thumb.size.height > 0 else { return 1 }
+        return thumb.size.width / thumb.size.height
     }
 }
 
-private struct SingleImageView: View {
+/// Displays a full-resolution (screen-capped) image via `DisplayImageCache`. Loading is keyed
+/// to the URL via `.task(id:)`, so it only re-runs when the URL actually changes — not on every
+/// unrelated re-render of a parent view (e.g. the overlay's live-ticking clock) — which is what
+/// keeps this from repeatedly re-decoding the same image from disk.
+private struct CachedDisplayImage: View {
     let url: URL?
+    @State private var image: NSImage?
 
     var body: some View {
         Group {
-            if let url, let image = NSImage(contentsOf: url) {
+            if let image {
                 Image(nsImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -134,8 +152,17 @@ private struct SingleImageView: View {
                 Color.black
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black)
+        .task(id: url) {
+            guard let url else {
+                image = nil
+                return
+            }
+            if let cached = DisplayImageCache.shared.cachedImage(for: url) {
+                image = cached
+            } else {
+                image = await DisplayImageCache.shared.load(url)
+            }
+        }
     }
 }
 

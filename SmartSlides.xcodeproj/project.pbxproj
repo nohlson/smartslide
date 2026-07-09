@@ -12,6 +12,7 @@
 		12ADCB0300EBF8C5075B9FC6 /* SlideshowOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFA8F23964E7F21569688C1 /* SlideshowOverlayView.swift */; };
 		27943B6FBE2787546F76EE96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5EEEB0A3A886FB2EF83FEA /* ContentView.swift */; };
 		283796146319BD6D21307EFB /* SlideshowWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C27B1F7DC50E3FD09B3514D /* SlideshowWindowController.swift */; };
+		2A01F0BDA5E02A0688551666 /* DisplayImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED690C344AA69F8A0073328 /* DisplayImageCache.swift */; };
 		2DD83A59BE5908F57C5365C8 /* TimelineConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53BBFAB1D7EB5EB622B550B /* TimelineConstants.swift */; };
 		391D3337AC85C7F9CDFCD1F5 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233E481794B7F0511D97DBDF /* SettingsViewModel.swift */; };
 		4BD9CC073E360888611E2EBF /* FolderSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE529C5AD90AADD3886A4260 /* FolderSelectionView.swift */; };
@@ -59,6 +60,7 @@
 		EE529C5AD90AADD3886A4260 /* FolderSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSelectionView.swift; sourceTree = "<group>"; };
 		F2D9BAE58DF17C2161F0D330 /* TimingSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimingSettingsView.swift; sourceTree = "<group>"; };
 		F4741B9D4F0257D4161E831A /* SmartSlides.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartSlides.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FED690C344AA69F8A0073328 /* DisplayImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				90805302B91A05E28EFA3F21 /* AppSettingsStore.swift */,
+				FED690C344AA69F8A0073328 /* DisplayImageCache.swift */,
 				ED87776316BE591408B2C5DE /* ImageScanner.swift */,
 				AFCF13F488B8741734506465 /* SeededRandomNumberGenerator.swift */,
 				A85D7FAEE8868FAF620FD20F /* ThumbnailStore.swift */,
@@ -210,6 +213,7 @@
 				95B4192B5C8A2A695E388956 /* AppSettings.swift in Sources */,
 				71082F574E500576F8E2FB0D /* AppSettingsStore.swift in Sources */,
 				27943B6FBE2787546F76EE96 /* ContentView.swift in Sources */,
+				2A01F0BDA5E02A0688551666 /* DisplayImageCache.swift in Sources */,
 				4BD9CC073E360888611E2EBF /* FolderSelectionView.swift in Sources */,
 				6A65DA8D4675A64D55A7D0CD /* ImageAsset.swift in Sources */,
 				C71FD35779F82C7BA7FF38B2 /* ImageScanner.swift in Sources */,
