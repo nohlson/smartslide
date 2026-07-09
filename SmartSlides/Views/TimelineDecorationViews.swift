@@ -37,3 +37,17 @@ struct RehashPlaceholderCell: View {
             .frame(width: cellSize.width, height: cellSize.height)
     }
 }
+
+/// A brief, unobtrusive heads-up shown in the fullscreen slideshow when Rehash on Replay is
+/// about to splice in a fresh shuffle — shown regardless of the controls overlay's own
+/// visibility, so it's seen even if the user isn't interacting.
+struct RehashToastView: View {
+    var body: some View {
+        Label("Shuffling in more photos…", systemImage: "arrow.triangle.2.circlepath")
+            .font(.system(size: 12, weight: .medium))
+            .foregroundStyle(.white)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 8)
+            .background(.ultraThinMaterial, in: Capsule())
+    }
+}

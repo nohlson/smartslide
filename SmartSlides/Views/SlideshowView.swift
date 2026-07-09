@@ -6,6 +6,8 @@ struct SlideshowView: View {
     @ObservedObject var thumbnailStore: ThumbnailStore
     @State private var overlayVisible: Bool = true
     @State private var overlayHideWorkItem: DispatchWorkItem?
+    @State private var rehashToastVisible: Bool = false
+    @State private var rehashToastHideWorkItem: DispatchWorkItem?
     var onExit: () -> Void
 
     var body: some View {
@@ -35,6 +37,19 @@ struct SlideshowView: View {
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: overlayVisible)
+
+            // Shown regardless of whether the controls overlay is visible or the user is
+            // interacting — a brief, unobtrusive heads-up that a fresh shuffle is coming.
+            VStack {
+                if rehashToastVisible {
+                    RehashToastView()
+                        .padding(.top, 28)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                }
+                Spacer()
+            }
+            .animation(.easeInOut(duration: 0.3), value: rehashToastVisible)
+            .allowsHitTesting(false)
         }
         .contentShape(Rectangle())
         .onContinuousHover { _ in
@@ -45,6 +60,9 @@ struct SlideshowView: View {
         }
         .task(id: player.currentIndex) {
             await prefetchNeighbors()
+        }
+        .onChange(of: player.rehashEventID) { _, _ in
+            showRehashToastBriefly()
         }
         .background(KeyEventCatcher(
             onSpace: { player.togglePause(); showOverlayTemporarily() },
@@ -62,6 +80,16 @@ struct SlideshowView: View {
         }
         overlayHideWorkItem = workItem
         DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: workItem)
+    }
+
+    private func showRehashToastBriefly() {
+        rehashToastVisible = true
+        rehashToastHideWorkItem?.cancel()
+        let workItem = DispatchWorkItem {
+            rehashToastVisible = false
+        }
+        rehashToastHideWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, execute: workItem)
     }
 
     /// Warms the display cache for scenes just ahead of (and one behind) the current slide, so

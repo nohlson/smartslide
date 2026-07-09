@@ -33,6 +33,11 @@ final class SlideshowPlayerViewModel: ObservableObject {
     /// generation's scenes become the new previous, and anything before this index is dropped.
     @Published private(set) var currentSegmentStart: Int
 
+    /// Bumped every time a Rehash on Replay continuation is spliced in — a one-shot signal the
+    /// view can observe (via `onChange`) to show a brief "fresh shuffle" toast, independent of
+    /// whatever state the main controls overlay happens to be in.
+    @Published private(set) var rehashEventID = 0
+
     var currentScene: SlideScene? {
         guard timeline.indices.contains(currentIndex) else { return nil }
         return timeline[currentIndex]
@@ -164,6 +169,7 @@ final class SlideshowPlayerViewModel: ObservableObject {
         timeline = keptCurrentGeneration + newScenes
         currentSegmentStart = keptCurrentGeneration.count
         onIndexChange?(currentIndex)
+        rehashEventID += 1
     }
 
     private func scheduleTimer() {
