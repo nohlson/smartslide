@@ -92,15 +92,16 @@ struct SlideshowView: View {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.5, execute: workItem)
     }
 
-    /// Warms the display cache for scenes just ahead of (and one behind) the current slide, so
-    /// switching feels instant — without this, each transition would decode full-resolution
-    /// images on demand.
+    /// Warms the display cache for the current slide and the next several ahead (plus one
+    /// behind, for quick back-nav), so switching feels instant. This is the thing that matters
+    /// most — a plain slideshow just playing forward is the normal, primary use case, and
+    /// everything here is ordered so the most imminent slides are ready first.
     private func prefetchNeighbors() async {
         let timeline = player.timeline
         let count = timeline.count
         guard count > 0 else { return }
 
-        let rawOffsets = [1, 2, -1]
+        let rawOffsets = [0, 1, 2, 3, -1]
         var urls: [URL] = []
         for offset in rawOffsets {
             let wrapped = ((player.currentIndex + offset) % count + count) % count
@@ -166,9 +167,20 @@ private struct PairedImageView: View {
 /// to the URL via `.task(id:)`, so it only re-runs when the URL actually changes — not on every
 /// unrelated re-render of a parent view (e.g. the overlay's live-ticking clock) — which is what
 /// keeps this from repeatedly re-decoding the same image from disk.
+///
+/// `image` is seeded synchronously from the cache at init — since this view is `.id()`-keyed
+/// per scene (so the crossfade transition works), it's fully recreated on every slide change,
+/// and if `@State` started at `nil` every time, even an already-prefetched image would flash to
+/// black for a frame while `.task` spun up. Seeding synchronously means a cache hit (the normal
+/// case, thanks to prefetching) renders correctly on the very first frame.
 private struct CachedDisplayImage: View {
     let url: URL?
     @State private var image: NSImage?
+
+    init(url: URL?) {
+        self.url = url
+        _image = State(initialValue: url.flatMap { DisplayImageCache.shared.cachedImage(for: $0) })
+    }
 
     var body: some View {
         Group {
@@ -181,15 +193,8 @@ private struct CachedDisplayImage: View {
             }
         }
         .task(id: url) {
-            guard let url else {
-                image = nil
-                return
-            }
-            if let cached = DisplayImageCache.shared.cachedImage(for: url) {
-                image = cached
-            } else {
-                image = await DisplayImageCache.shared.load(url)
-            }
+            guard image == nil, let url else { return }
+            image = await DisplayImageCache.shared.load(url)
         }
     }
 }

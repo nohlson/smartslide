@@ -13,15 +13,18 @@ import ImageIO
 final class DisplayImageCache {
     static let shared = DisplayImageCache()
 
-    private let cache = NSCache<NSURL, NSImage>()
+    // NSCache is documented thread-safe, so the plain cache lookup is marked `nonisolated` and
+    // allowed to run synchronously from anywhere (including a SwiftUI view's `init`) — that's
+    // what lets an already-prefetched image appear with zero async hop, avoiding a flash.
+    private nonisolated(unsafe) let cache = NSCache<NSURL, NSImage>()
     private let maxPixelSize: CGFloat
 
     private init() {
-        // Current scene + a couple of prefetched neighbors either side (2-image layouts need
-        // up to 2 URLs per scene) — enough for instant switching without keeping the whole
-        // library's full-resolution data resident.
-        cache.countLimit = 10
-        cache.totalCostLimit = 160 * 1024 * 1024 // ~160MB ceiling on decoded bitmap bytes
+        // The normal use case is a plain slideshow playing forward: current scene, a few
+        // prefetched frames ahead, one behind — sized with real headroom so playback never
+        // waits on a cache eviction it shouldn't have needed.
+        cache.countLimit = 16
+        cache.totalCostLimit = 260 * 1024 * 1024 // ~260MB ceiling on decoded bitmap bytes
 
         let screen = NSScreen.main
         let scale = screen?.backingScaleFactor ?? 2
@@ -31,7 +34,7 @@ final class DisplayImageCache {
 
     /// Synchronous cache check — used so already-loaded images (e.g. prefetched neighbors)
     /// display instantly with no async hop.
-    func cachedImage(for url: URL) -> NSImage? {
+    nonisolated func cachedImage(for url: URL) -> NSImage? {
         cache.object(forKey: url as NSURL)
     }
 
